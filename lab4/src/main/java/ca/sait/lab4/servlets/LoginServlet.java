@@ -23,6 +23,15 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Get the query string and check it for logout
+        String query = request.getQueryString() != null ? request.getQueryString() : "";
+        String message = "";
+        if (query.contains("logout")) {
+            message = "You have successfully logged out";
+            // TODO: Invalidate the session
+        }
+        request.setAttribute("message", message);
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
     /**
