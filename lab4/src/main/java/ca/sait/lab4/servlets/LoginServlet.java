@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 public class LoginServlet extends HttpServlet {
@@ -25,12 +26,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        
         // Get the query string and check it for logout
         String query = request.getQueryString() != null ? request.getQueryString() : "";
         String message = "";
         if (query.contains("logout")) {
             message = "You have successfully logged out";
+            session.invalidate();
             // TODO: Invalidate the session
+        } else if (session.getAttribute("username") != null) {
+            response.sendRedirect("home");
+            return;
         }
         request.setAttribute("message", message);
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
@@ -47,6 +54,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String message = "";
