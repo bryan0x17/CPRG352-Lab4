@@ -1,6 +1,8 @@
 
 package ca.sait.lab4.servlets;
 
+import ca.sait.lab4.model.User;
+import ca.sait.lab4.services.AccountService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -52,9 +54,18 @@ public class LoginServlet extends HttpServlet {
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             message = "Username or password is missing";
             request.setAttribute("message", message);
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
+            AccountService account = new AccountService();
+            User user = account.login(username, password);
             
+            if (user != null) {
+                request.getSession().setAttribute("username", username);
+                response.sendRedirect("home");
+            } else {
+                request.setAttribute("username", username);
+                message = "Incorrect username or password";
+                request.setAttribute("message", message);
+            }
         }
     }
 }
