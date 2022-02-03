@@ -12,7 +12,7 @@ For this lab, I used Netbeans 12.6, JDK 17, and Tomcat 9.
 ## Structure and Architecture
 
 This lab uses a simple MVC architecture.
-There are two servlets, LoginServlet and HomeServlet. The LoginServlet serves the login page, accepts and validates usernames and passwords (using a service class), creates the session and stores the username in the session. It also processes the logout of the user, destroying the session. The HomeServlet serves the home page with a customized message for each user.
+There are two servlets, LoginServlet and HomeServlet. The LoginServlet serves the login page, accepts and validates usernames and passwords (using a service class), creates the session and stores the username in the session. It also processes the logout of the user, destroying the session. The HomeServlet serves the home page with a customized message for each user based on the username in the session.
 
 ## How Do I Run It?
 
