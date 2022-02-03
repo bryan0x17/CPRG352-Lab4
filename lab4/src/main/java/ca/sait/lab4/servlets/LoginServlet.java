@@ -50,9 +50,11 @@ public class LoginServlet extends HttpServlet {
         String message = "";
         
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-            message = "Invalid username or password";
+            message = "Username or password is missing";
             request.setAttribute("message", message);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        } else {
+            
         }
     }
 }
